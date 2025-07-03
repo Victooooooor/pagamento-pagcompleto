@@ -17,17 +17,13 @@ class PagamentoController extends Controller
             'cliente' => 'required|array',
         ]);
 
-        // Cria o pedido no banco
         $pedido = Pedido::create($dados);
 
-        // Monta a URL com o token
         $accessToken = env('PAGCOMPLETO_ACCESS_TOKEN');
         $url = "https://apiinterna.ecompleto.com.br/exams/processTransaction?accessToken={$accessToken}";
 
-        // Envia a requisição para o gateway
         $resposta = Http::post($url, $dados);
 
-        // Atualiza status e resposta
         $pedido->update([
             'status_pagamento' => $resposta->status() === 200 ? 'aprovado' : 'recusado',
             'resposta_gateway' => $resposta->json(),

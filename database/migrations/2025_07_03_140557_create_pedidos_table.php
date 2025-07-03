@@ -17,7 +17,7 @@ return new class extends Migration
         $table->decimal('valor', 10, 2);
         $table->string('forma_pagamento');
         $table->json('cliente');
-        $table->string('status_pagamento')->nullable(); // aprovado, recusado, etc.
+        $table->string('status_pagamento')->nullable(); 
         $table->json('resposta_gateway')->nullable();
         $table->timestamps();
         });
