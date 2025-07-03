@@ -11,7 +11,7 @@ Este projeto realiza a integração com o gateway de pagamento PAGCOMPLETO utili
 ## Instalação
 
 ```bash
-git clone https://github.com/seuusuario/pagamento-pagcompleto.git
+git clone https://github.com/Victooooooor/pagamento-pagcompleto.git
 cd pagamento-pagcompleto
 composer install
 cp .env.example .env
