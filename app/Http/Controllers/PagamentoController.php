@@ -2,29 +2,40 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pedido;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
 class PagamentoController extends Controller
 {
-    private string $accessToken = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjI2ODQsInN0b3JlSWQiOjE5NzksImlhdCI6MTc1MTM5MjgwMiwiZXhwIjoxNzUzOTg0ODAyfQ.AGQA72VMedTSDkziI4tf1CIEhBhlrAC2dqXXn_22dPk';
-
     public function processar(Request $request)
     {
-        $payload = $request->validate([
-            'pedido_id' => 'required|string',
+        $dados = $request->validate([
+            'pedido_id' => 'required|string|unique:pedidos,pedido_id',
             'valor' => 'required|numeric',
             'forma_pagamento' => 'required|string',
             'cliente' => 'required|array',
         ]);
 
-        $url = "https://apiinterna.ecompleto.com.br/exams/processTransaction?accessToken={$this->accessToken}";
+        // Cria o pedido no banco
+        $pedido = Pedido::create($dados);
 
-        $response = Http::post($url, $payload);
+        // Monta a URL com o token
+        $accessToken = env('PAGCOMPLETO_ACCESS_TOKEN');
+        $url = "https://apiinterna.ecompleto.com.br/exams/processTransaction?accessToken={$accessToken}";
+
+        // Envia a requisição para o gateway
+        $resposta = Http::post($url, $dados);
+
+        // Atualiza status e resposta
+        $pedido->update([
+            'status_pagamento' => $resposta->status() === 200 ? 'aprovado' : 'recusado',
+            'resposta_gateway' => $resposta->json(),
+        ]);
 
         return response()->json([
-            'status' => $response->status(),
-            'response' => $response->json(),
+            'mensagem' => 'Pedido processado com sucesso',
+            'pedido' => $pedido
         ]);
     }
 }

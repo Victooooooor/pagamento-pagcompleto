@@ -1,18 +1,36 @@
-# Integração com PAGCOMPLETO
+# 💳 Integração com PAGCOMPLETO - Laravel 11 + PHP 8.4
 
-Este projeto realiza a integração com o gateway de pagamento PAGCOMPLETO utilizando Laravel 11 e PHP 8.4.
+Este projeto implementa uma API REST para processar pagamentos utilizando o gateway **PAGCOMPLETO**, com registro de pedidos no banco de dados PostgreSQL. Desenvolvido com **Laravel 11** e **PHP 8.4**, o sistema está preparado para integração segura e escalável.
 
-## Requisitos
+---
 
-- PHP 8.4+
-- Laravel 11
+## 🚀 Tecnologias Utilizadas
+
+- [x] PHP 8.4
+- [x] Laravel 11
+- [x] PostgreSQL
+- [x] Laravel HTTP Client
+- [x] Validação e tratamento de erros
+- [x] Boas práticas com `.env` e versionamento seguro
+
+---
+
+## 🛠️ Requisitos
+
+- PHP 8.2 ou superior (idealmente 8.4)
 - Composer
+- PostgreSQL
+- Git
 
-## Instalação
+---
+
+## 📦 Instalação
 
 ```bash
-git clone https://github.com/Victooooooor/pagamento-pagcompleto.git
+git clone https://github.com/seuusuario/pagamento-pagcompleto.git
 cd pagamento-pagcompleto
 composer install
 cp .env.example .env
 php artisan key:generate
+php artisan migrate
+php artisan serve
