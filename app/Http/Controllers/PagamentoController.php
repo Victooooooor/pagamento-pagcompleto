@@ -19,6 +19,9 @@ class PagamentoController extends Controller
 
         $pedido = Pedido::create($dados);
 
+
+        // O token de acesso à API do PAGCOMPLETO deve ser enviado via query string, conforme documentação.
+        // Por segurança, ele é mantido no .env e inserido dinamicamente na URL da requisição. ;>
         $accessToken = env('PAGCOMPLETO_ACCESS_TOKEN');
         $url = "https://apiinterna.ecompleto.com.br/exams/processTransaction?accessToken={$accessToken}";
 
