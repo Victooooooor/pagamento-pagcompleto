@@ -7,16 +7,23 @@ use Illuminate\Database\Eloquent\Model;
 class Pedido extends Model
 {
     protected $fillable = [
-        'pedido_id',
-        'valor',
-        'forma_pagamento',
-        'cliente',
-        'status_pagamento',
-        'resposta_gateway'
+        'valor_total', 'valor_frete', 'data', 'id_cliente', 'id_loja', 'id_situacao'
     ];
 
-    protected $casts = [
-        'cliente' => 'array',
-        'resposta_gateway' => 'array',
-    ];
+    protected $dates = ['data'];
+
+    public function cliente()
+    {
+        return $this->belongsTo(Cliente::class, 'id_cliente');
+    }
+
+    public function situacao()
+    {
+        return $this->belongsTo(PedidoSituacao::class, 'id_situacao');
+    }
+
+    public function pagamento()
+    {
+        return $this->hasOne(PedidoPagamento::class, 'id_pedido');
+    }
 }

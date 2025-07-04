@@ -14,6 +14,10 @@ return [
     |
     */
 
+    'pagcompleto' => [
+    'token' => env('PAGCOMPLETO_TOKEN'),
+    ],
+
     'postmark' => [
         'token' => env('POSTMARK_TOKEN'),
     ],
