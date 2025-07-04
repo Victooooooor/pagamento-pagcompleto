@@ -27,7 +27,7 @@ Este projeto implementa uma API REST para processar pagamentos utilizando o gate
 ## 📦 Instalação
 
 ```bash
-git clone https://github.com/seuusuario/pagamento-pagcompleto.git
+git clone https://github.com/Victooooooor/pagamento-pagcompleto
 cd pagamento-pagcompleto
 composer install
 cp .env.example .env
