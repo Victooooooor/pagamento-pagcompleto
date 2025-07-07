@@ -10,7 +10,9 @@ class Pedido extends Model
         'valor_total', 'valor_frete', 'data', 'id_cliente', 'id_loja', 'id_situacao'
     ];
 
-    protected $dates = ['data'];
+    protected $casts = [
+    'data' => 'datetime',
+    ];
 
     public function cliente()
     {
